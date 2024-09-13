@@ -14,12 +14,13 @@ func generateData() []response.Consumer {
 	data := []response.Consumer{}
 	for i := 0; i < 10; i++ {
 		age, _ := lorem.Int(10, 60)
-		id, _ := gonanoid.New()
+		id, _ := gonanoid.Generate("abcdefghijklmnopqrstuvwxyz0123456789", 10)
 		temp := response.Consumer{
 			Id:     id,
 			Name:   lorem.Name("en", true),
 			Age:    age,
 			Gender: utils.RandomEnum[int]([]int{0, 1}), // 0: male, 1: female
+			Avatar: lorem.Picsum(lorem.PicsumOption{Width: 200}),
 		}
 		data = append(data, temp)
 	}

@@ -11,4 +11,5 @@ type Consumer struct {
 	Name   string `json:"name"`
 	Age    int    `json:"age"`
 	Gender int    `json:"gender"`
+	Avatar string `json:"avatar"`
 }
