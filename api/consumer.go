@@ -2,21 +2,19 @@ package api
 
 import (
 	"encoding/json"
-	"mock-api-serverless-go/response"
-	"mock-api-serverless-go/utils"
+	"mock-api-serverless/response"
+	"mock-api-serverless/utils"
 	"net/http"
 
 	"github.com/CiroLee/go-lorem"
-	gonanoid "github.com/matoous/go-nanoid/v2"
 )
 
 func generateData() []response.Consumer {
 	data := []response.Consumer{}
 	for i := 0; i < 10; i++ {
 		age, _ := lorem.Int(10, 60)
-		id, _ := gonanoid.Generate("abcdefghijklmnopqrstuvwxyz0123456789", 10)
 		temp := response.Consumer{
-			Id:     id,
+			Id:     lorem.NanoId(12),
 			Name:   lorem.Name("en", true),
 			Age:    age,
 			Gender: utils.RandomEnum[int]([]int{0, 1}), // 0: male, 1: female
