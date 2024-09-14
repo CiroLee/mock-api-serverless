@@ -2,6 +2,7 @@ package api
 
 import (
 	"encoding/json"
+	"mock-api-serverless/middleware"
 	"mock-api-serverless/mock"
 	"mock-api-serverless/response"
 	"mock-api-serverless/utils"
@@ -16,6 +17,7 @@ type ConsumerRes struct {
 
 func Handler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
+	middleware.Cors(w, r)
 
 	_num := 10 // 默认10条数据
 	query := r.URL.Query()
