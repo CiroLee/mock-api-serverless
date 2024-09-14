@@ -7,9 +7,11 @@ type CommonRes[T any] struct {
 }
 
 type Consumer struct {
-	Id     string `json:"id"`
-	Name   string `json:"name"`
-	Age    int    `json:"age"`
-	Gender int    `json:"gender"`
-	Avatar string `json:"avatar"`
+	Id       string `json:"id"`
+	Name     string `json:"name"`
+	Age      int    `json:"age"`
+	Gender   int    `json:"gender"`
+	Avatar   string `json:"avatar"`
+	CreateAt int    `json:"createAt"`
+	UpdateAt int    `json:"updateAt"`
 }
