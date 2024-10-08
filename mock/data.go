@@ -28,3 +28,26 @@ func Consumer(num int) []response.Consumer {
 
 	return data
 }
+
+func List[T any](num, min, max int, generator func() T) []T {
+	var data []T
+	for i := 0; i < num; i++ {
+		value := generator()
+		data = append(data, value)
+	}
+	return data
+}
+
+func GenerateInt(min, max int) func() int {
+	return func() int {
+		val, _ := lorem.Int(min, max)
+		return val
+	}
+}
+
+func GenerateFloat(min, max int, decimal int) func() float64 {
+	return func() float64 {
+		val, _ := lorem.Float64(float64(min), float64(max), uint(decimal))
+		return val
+	}
+}

@@ -7,7 +7,6 @@ import (
 	"mock-api-serverless/response"
 	"mock-api-serverless/utils"
 	"net/http"
-	"strconv"
 )
 
 type ConsumerRes struct {
@@ -19,29 +18,25 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	middleware.Cors(w, r)
 
-	_num := 10 // 默认10条数据
 	query := r.URL.Query()
 	numStr := query.Get("num")
-	if numStr != "" {
-		num, err := strconv.Atoi(numStr)
-		if err != nil {
-			res := response.CommonRes[string]{
-				Code: utils.Code().InvalidParams,
-				Msg:  "invalid num",
-			}
-			json.NewEncoder(w).Encode(res)
-			return
-		} else {
-			_num = num
+	num, err := utils.TransferNumberQuery(numStr, 10)
+
+	if err != nil {
+		res := response.CommonRes[string]{
+			Code: utils.Code().InvalidParams,
+			Msg:  "consumer:invalid num",
 		}
+		json.NewEncoder(w).Encode(res)
+		return
 	}
 
 	res := response.CommonRes[ConsumerRes]{
 		Code: 0,
 		Msg:  "success",
 		Data: ConsumerRes{
-			Total: _num,
-			List:  mock.Consumer(_num),
+			Total: num,
+			List:  mock.Consumer(num),
 		},
 	}
 	json.NewEncoder(w).Encode(res)
